@@ -25,7 +25,7 @@ def health():
 async def chat(req: ChatRequest):
     api_key = os.environ.get("DEEPSEEK_API_KEY")
     if not api_key:
-        return {"error": "DEEPSEEK_API_KEY is missing in Railway Variables"}
+        return {"error": "DEEPSEEK_API_KEY is missing"}
 
     client = OpenAI(
         api_key=api_key,
