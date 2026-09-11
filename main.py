@@ -28,14 +28,14 @@ async def chat(req: ChatRequest):
     if not api_key:
         return {"error": "DEEPSEEK_API_KEY is missing"}
 
-client = OpenAI(
-    api_key=api_key,
-    base_url="https://api.groq.com/openai/v1"  # <- yeh change karo
-)
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://api.groq.com/openai/v1"
+    )
 
     def stream():
         response = client.chat.completions.create(
-model="llama-3.3-70b-versatile",  # <- yeh change karo
+            model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": req.message}],
             stream=True
         )
@@ -44,12 +44,6 @@ model="llama-3.3-70b-versatile",  # <- yeh change karo
             if delta:
                 yield delta
     return StreamingResponse(stream(), media_type="text/plain")
-
-
-
-
-
-
 
 if __name__ == "__main__":
     import uvicorn
