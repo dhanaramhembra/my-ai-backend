@@ -28,14 +28,14 @@ async def chat(req: ChatRequest):
     if not api_key:
         return {"error": "DEEPSEEK_API_KEY is missing"}
 
-    client = OpenAI(
-        api_key=api_key,
-        base_url="https://api.deepseek.com"
-    )
+client = OpenAI(
+    api_key=api_key,
+    base_url="https://api.groq.com/openai/v1"  # <- yeh change karo
+)
 
     def stream():
         response = client.chat.completions.create(
-            model="deepseek-chat",
+model="llama-3.3-70b-versatile",  # <- yeh change karo
             messages=[{"role": "user", "content": req.message}],
             stream=True
         )
